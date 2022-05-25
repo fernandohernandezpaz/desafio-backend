@@ -61,6 +61,61 @@
 				"description": "Debe permitir crear una boleta de pago son la siguiente información, recibiendo la siguiente información:"
 			},
 			"response": []
+		},
+		{
+			"name": "Do Transaction",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "importe_pago",
+							"value": "164.44",
+							"type": "text"
+						},
+						{
+							"key": "method_transaction",
+							"value": "1",
+							"description": "1-debid_card, 2-credict_card and 3 - cash",
+							"type": "text"
+						},
+						{
+							"key": "payable",
+							"value": "3848748c-97f1-4847-94b9-ba2029c99a0e",
+							"description": "bar_code of payable record",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "",
+							"description": "optional",
+							"type": "text"
+						},
+						{
+							"key": "number_card",
+							"value": "123-321-4565-789",
+							"description": "Required if the method of payment is not cash",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/transaction/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"transaction",
+						""
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

@@ -1,6 +1,7 @@
-from django.urls import path, include
-from .apis import PayablesCreateAPIView
+from django.urls import path
+from .apis import PayablesCreateAPIView, TransactionCreateAPIView
 
 urlpatterns = [
-    path('payable/', PayablesCreateAPIView.as_view())
+    path('payable/', PayablesCreateAPIView.as_view()),
+    path('transaction/', TransactionCreateAPIView.as_view()),
 ]
