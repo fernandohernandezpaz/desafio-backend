@@ -58,7 +58,7 @@
 						""
 					]
 				},
-				"description": "Debe permitir crear una boleta de pago son la siguiente información, recibiendo la siguiente información:"
+				"description": "Debe permitir crear una boleta de pago son la siguiente información, recibiendo la siguiente información\n\nNOTA: el campo bar_code es la llave primaria del registro y esta es ocupada en el campo bar_code en la api \"Do Transaction\""
 			},
 			"response": []
 		},
@@ -113,7 +113,47 @@
 						"transaction",
 						""
 					]
-				}
+				},
+				"description": "Debe permitir realizar un pago (transacción), recibiendo la siguiente información"
+			},
+			"response": []
+		},
+		{
+			"name": "List of Payable",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/payable/?type_service=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"payable",
+						""
+					],
+					"query": [
+						{
+							"key": "type_service",
+							"value": "2",
+							"description": "1 - Gas, 2 - Luz y 3 - Internet"
+						},
+						{
+							"key": "bar_code",
+							"value": "99442c22-7cb8-4c1b-8864-ac6f3c3271fc",
+							"disabled": true
+						},
+						{
+							"key": "due_date",
+							"value": "2020-11-27",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Debe permitir listar aquellas boletas impagas en forma total o filtradas por tipo de servicio, devolviendo la siguiente información:\n\n1.  Tipo de servicio (solo si se lista sin filtro)\n2.  Fecha de vencimiento\n3.  Importe del servicio\n4.  Código de barra\n    \n\nFiltros habilitados:\n\n*   type_service\n    \n\n*   bar_code\n    \n\n*   due_date"
 			},
 			"response": []
 		}

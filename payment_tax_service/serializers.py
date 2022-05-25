@@ -2,7 +2,16 @@ from rest_framework import serializers
 from .models import Payables, StatusPayable, Transactions
 
 
-class PayableSerializer(serializers.ModelSerializer):
+class PayableListSerializer(serializers.ModelSerializer):
+    type_service = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = Payables
+        depth = 1
+        fields = ['type_service', 'importe', 'due_date', 'bar_code']
+
+
+class PayableCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payables
         exclude = ['status']
