@@ -1,0 +1,66 @@
+{
+	"info": {
+		"_postman_id": "a77c834e-c962-4114-b4f1-82c4b5c3621c",
+		"name": "DesafioBackend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5459513"
+	},
+	"item": [
+		{
+			"name": "Create Payable",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// random import",
+							"var precision = 100; // 2 decimals",
+							"var randomNumber = Math.floor(Math.random() * (1000 * precision - 1 * precision) + 1 * precision) / (1*precision);",
+							"pm.globals.set(\"randomImporte\", randomNumber);",
+							"",
+							"// random date",
+							"function randomDate(start, end) {",
+							"    const newDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));",
+							"    return newDate.toISOString().split('T')[0];",
+							"}",
+							"pm.globals.set(\"randomDate\", randomDate(new Date(2012, 0, 1), new Date()));",
+							"",
+							"// random type service",
+							"const randomService = Math.floor(Math.random() * 3) + 1;",
+							"pm.globals.set(\"randomService\", randomService);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type_service\": {{randomService}},\n    \"description\":  \"{{$randomCompanyName}}\",\n    \"importe\": {{randomImporte}},\n    \"due_date\": \"{{randomDate}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/payable/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"payable",
+						""
+					]
+				},
+				"description": "Debe permitir crear una boleta de pago son la siguiente información, recibiendo la siguiente información:"
+			},
+			"response": []
+		}
+	]
+}

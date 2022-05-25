@@ -16,6 +16,9 @@ class ServiceType(models.Model):
     created_at = models.DateTimeField(null=True, auto_now_add=True)
     updated_at = models.DateTimeField(null=True, auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 
 class StatusPayable(models.Model):
     """
@@ -29,6 +32,9 @@ class StatusPayable(models.Model):
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(null=True, auto_now_add=True)
     updated_at = models.DateTimeField(null=True, auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Payables(models.Model):
@@ -57,6 +63,9 @@ class MethodTransaction(models.Model):
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(null=True, auto_now_add=True)
     updated_at = models.DateTimeField(null=True, auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Transactions(models.Model):
