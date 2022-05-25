@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
 # My apps
 INSTALLED_APPS += [
+    'payment_tax_service'
 ]
 # Third party
 INSTALLED_APPS += [
