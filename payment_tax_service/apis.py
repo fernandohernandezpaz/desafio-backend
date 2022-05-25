@@ -1,12 +1,11 @@
 import datetime
-from .models import Payables, Transactions, StatusPayable
-from .serializers import PayableListSerializer, PayableCreateSerializer, TransactionsSerializer
+from django.db.models import Count, Sum
+from .models import Payables, Transactions
+from .serializers import (PayableListSerializer, PayableCreateSerializer,
+                          TransactionListSerializer, TransactionsCreateSerializer, )
 from rest_framework.response import Response
-from rest_framework.generics import CreateAPIView, ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView
 from rest_framework.serializers import ValidationError
-
-# TODO Pending status
-pending_status = StatusPayable.objects.filter(name__icontains='Pending').first()
 
 
 class PayablesListCreateAPI(ListCreateAPIView):
@@ -14,7 +13,8 @@ class PayablesListCreateAPI(ListCreateAPIView):
     Class to list and create a pending payable
     """
     model = Payables
-    queryset = Payables.objects.filter(status=pending_status)
+    # TODO Pending status
+    queryset = Payables.objects.filter(status__name__icontains='Pending')
     serializer_class = PayableCreateSerializer
 
     def list(self, request):
@@ -43,9 +43,36 @@ class PayablesListCreateAPI(ListCreateAPIView):
         return Response(serializer.data)
 
 
-class TransactionCreateAPIView(CreateAPIView):
+class TransactionListCreate(ListCreateAPIView):
     """
     Class pay the payable of the service
     """
     model = Transactions
-    serializer_class = TransactionsSerializer
+    serializer_class = TransactionsCreateSerializer
+
+    def list(self, request):
+        filtros = {}
+        request_get = request.GET
+        if request_get.get('pay_date'):
+            dates_string = request_get.getlist('pay_date')
+            for date_string in dates_string:
+                format = "%Y-%m-%d"
+                try:
+                    datetime.datetime.strptime(date_string, format)
+                except ValueError:
+                    raise ValidationError({
+                        'pay_date': 'Date format not match. The expected format is {format}'.format(
+                            format=format.replace('%', '')
+                        )
+                    })
+
+            filtros['pay_date__range'] = sorted(request_get.getlist('pay_date'))
+        queryset = self.model.objects.filter(**filtros) \
+            .order_by('-pay_date') \
+            .values('pay_date') \
+            .annotate(
+                quantity_transactions=Count('pay_date'),
+                total=Sum('importe_pago')
+            )
+        serializer = TransactionListSerializer(queryset, many=True)
+        return Response(serializer.data)

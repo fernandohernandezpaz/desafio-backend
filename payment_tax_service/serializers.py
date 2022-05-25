@@ -24,7 +24,13 @@ class PayableCreateSerializer(serializers.ModelSerializer):
         return obj
 
 
-class TransactionsSerializer(serializers.ModelSerializer):
+class TransactionListSerializer(serializers.Serializer):
+    pay_date = serializers.DateField()
+    quantity_transactions = serializers.IntegerField()
+    total = serializers.DecimalField(max_digits=10, decimal_places=2)
+
+
+class TransactionsCreateSerializer(serializers.ModelSerializer):
     number_card = serializers.CharField(max_length=30, required=False)
 
     class Meta:

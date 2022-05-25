@@ -75,5 +75,6 @@ class Transactions(models.Model):
     number_card = models.CharField(max_length=30, editable=False, null=True, blank=True)
     importe_pago = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(null=True, blank=True)
+    pay_date = models.DateField()
     created_at = models.DateTimeField(null=True, auto_now_add=True)
     updated_at = models.DateTimeField(null=True, auto_now=True)

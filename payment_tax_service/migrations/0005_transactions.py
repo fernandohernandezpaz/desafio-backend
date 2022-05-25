@@ -19,6 +19,7 @@ class Migration(migrations.Migration):
                 ('number_card', models.CharField(blank=True, editable=False, max_length=30, null=True)),
                 ('importe_pago', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('description', models.TextField(blank=True, null=True)),
+                ('pay_date', models.DateField()),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
                 ('method_transaction', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='payment_tax_service.methodtransaction')),

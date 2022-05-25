@@ -15,4 +15,5 @@ class Command(BaseCommand):
         call_command('loaddata', 'dumps/method_transaction.json')
         call_command('loaddata', 'dumps/service_type.json')
         call_command('loaddata', 'dumps/status_payable.json')
+        call_command('loaddata', 'dumps/payables.json')
         self.stdout.write(self.style.SUCCESS('Database filled!'))
