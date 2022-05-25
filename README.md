@@ -37,3 +37,7 @@ python3 manage.py migrate_data
 En cada api existe una descripción en la opción de documentación menu lateral superior izquierdo
 
 
+### Paso 6: run test
+```
+./manage.py test
+```
