@@ -21,9 +21,9 @@ class StatusPayable(models.Model):
     """
     Class to save status of payable
      Example:
-         - Luz
-         - Agua
-         - Gas
+         - Paid
+         - Pending
+         - Rejected
     """
     name = models.CharField(max_length=20)
     active = models.BooleanField(default=True)
